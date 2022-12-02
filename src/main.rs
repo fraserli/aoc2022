@@ -25,6 +25,7 @@ fn main() {
 
     match day {
         1 => run!(day01),
+        2 => run!(day02),
         _ => panic!("Invalid day: {}", day),
     };
 
