@@ -1,8 +1,6 @@
-mod solutions;
-
 use std::time::Instant;
 
-use solutions::*;
+use aoc2022::solutions::*;
 
 macro_rules! run {
     ($module:ident) => {{
