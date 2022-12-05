@@ -26,6 +26,7 @@ fn main() {
         2 => run!(day02),
         3 => run!(day03),
         4 => run!(day04),
+        5 => run!(day05),
         _ => panic!("Invalid day: {}", day),
     };
 

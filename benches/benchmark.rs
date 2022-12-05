@@ -48,6 +48,6 @@ macro_rules! benchmark_all {
     };
 }
 
-benchmark_all!(day01, day02, day03, day04);
+benchmark_all!(day01, day02, day03, day04, day05);
 
 criterion_main!(benches);
