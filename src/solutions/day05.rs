@@ -1,10 +1,13 @@
-pub fn process_input(input: &str) -> (Vec<Vec<char>>, Vec<(usize, usize, usize)>) {
+type Stacks = Vec<Vec<char>>;
+type Moves = Vec<(usize, usize, usize)>;
+
+pub fn process_input(input: &str) -> (Stacks, Moves) {
     let mut lines = input.lines();
 
     let count = (input.lines().next().unwrap().len() + 1) / 4;
     let mut stacks = vec![Vec::new(); count];
 
-    while let Some(line) = lines.next() {
+    for line in lines.by_ref() {
         if &line.trim()[..1] != "[" {
             break;
         }
@@ -41,7 +44,7 @@ pub fn process_input(input: &str) -> (Vec<Vec<char>>, Vec<(usize, usize, usize)>
     (stacks, moves)
 }
 
-pub fn part1(data: &(Vec<Vec<char>>, Vec<(usize, usize, usize)>)) -> String {
+pub fn part1(data: &(Stacks, Moves)) -> String {
     let mut stacks = data.0.to_owned();
 
     for (count, src, dest) in data.1.iter() {
@@ -54,7 +57,7 @@ pub fn part1(data: &(Vec<Vec<char>>, Vec<(usize, usize, usize)>)) -> String {
     output(&stacks)
 }
 
-pub fn part2(data: &(Vec<Vec<char>>, Vec<(usize, usize, usize)>)) -> String {
+pub fn part2(data: &(Stacks, Moves)) -> String {
     let mut stacks = data.0.to_owned();
 
     for (count, src, dest) in data.1.iter() {

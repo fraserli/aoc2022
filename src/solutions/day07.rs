@@ -31,7 +31,7 @@ pub fn process_input(input: &str) -> Tree {
 
         match words.next().unwrap() {
             "ls" => {
-                while !lines.peek().is_none() && !lines.peek().unwrap().starts_with("$") {
+                while lines.peek().is_some() && !lines.peek().unwrap().starts_with('$') {
                     let mut words = lines.next().unwrap().split(' ');
                     let word1 = words.next().unwrap();
                     let word2 = words.next().unwrap();
@@ -89,11 +89,11 @@ pub fn part2(data: &Tree) -> usize {
     let diff = 30000000 - unused;
 
     sizes.sort();
-    *sizes.iter().filter(|n| **n >= diff).next().unwrap()
+    *sizes.iter().find(|n| **n >= diff).unwrap()
 }
 
 fn all_sizes(tree: &Tree, node: usize, sizes: &mut Vec<usize>) -> usize {
-    let mut filesizes: usize = tree[node].files.values().sum();
+    let filesizes: usize = tree[node].files.values().sum();
     let mut dirsizes = 0;
     for subdir in tree[node].subdirs.values() {
         dirsizes += all_sizes(tree, *subdir, sizes);
