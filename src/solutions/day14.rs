@@ -1,5 +1,5 @@
 use std::cmp::{max, min};
-use std::collections::HashSet;
+use std::collections::{HashSet, VecDeque};
 use std::ops::RangeInclusive;
 
 pub type Point = (i64, i64);
@@ -72,30 +72,19 @@ pub fn part1((grid, lowest): &(Grid, i64)) -> usize {
 
 pub fn part2((grid, lowest): &(Grid, i64)) -> usize {
     let mut sand = Grid::new();
+    let mut queue = VecDeque::new();
 
-    for _ in 0.. {
-        let mut pos = (500, 0);
+    queue.push_back((500, 0));
+    sand.insert((500, 0));
 
-        'pos: loop {
-            if pos.1 > *lowest {
-                break;
-            }
-
-            for (x, y) in [(0, 1), (-1, 1), (1, 1)] {
-                let new_pos = (pos.0 + x, pos.1 + y);
-                if !grid.contains(&new_pos) && !sand.contains(&new_pos) {
-                    pos = new_pos;
-                    continue 'pos;
+    while let Some((x, y)) = queue.pop_front() {
+        if y < *lowest + 1 {
+            for p in [(x, y + 1), (x - 1, y + 1), (x + 1, y + 1)] {
+                if !sand.contains(&p) && !grid.contains(&p) {
+                    queue.push_back(p);
+                    sand.insert(p);
                 }
             }
-
-            break;
-        }
-
-        sand.insert(pos);
-
-        if pos == (500, 0) {
-            break;
         }
     }
 
